@@ -1,0 +1,7 @@
+systems:
+  - { name: payments-api,       capability_rto: 1h, capability_rpo: 15m, depends_on: [core-db, hsm] }
+  - { name: onboarding-app,     capability_rto: 4h, capability_rpo: 1h,  depends_on: [core-db] }
+  - { name: kyc-vendor-gateway, capability_rto: 1d, capability_rpo: 1d }
+  - { name: data-warehouse,     capability_rto: 1d, capability_rpo: 1d,  depends_on: [core-db] }
+  - { name: core-db,            capability_rto: 4h, capability_rpo: 15m }   # payments needs better than 4h: gap
+  - { name: hsm,                capability_rto: 1h, capability_rpo: 15m }

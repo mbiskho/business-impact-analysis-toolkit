@@ -1,0 +1,28 @@
+processes:
+  - name: Card payments authorisation
+    owner: Head of Payments
+    max_data_loss: 15m
+    depends_on: [payments-api]
+    impacts:
+      financial:    { 1h: 4, 4h: 5, 1d: 5, 3d: 5, 1w: 5 }
+      customer:     { 1h: 4, 4h: 5, 1d: 5, 3d: 5, 1w: 5 }
+      regulatory:   { 1h: 2, 4h: 3, 1d: 4, 3d: 5, 1w: 5 }
+      reputational: { 1h: 3, 4h: 4, 1d: 5, 3d: 5, 1w: 5 }
+  - name: Customer onboarding (KYC)
+    owner: Head of Operations
+    max_data_loss: 1h
+    depends_on: [onboarding-app, kyc-vendor-gateway]
+    impacts:
+      financial:    { 1h: 1, 4h: 2, 1d: 3, 3d: 4, 1w: 4 }
+      customer:     { 1h: 1, 4h: 2, 1d: 3, 3d: 3, 1w: 4 }
+      regulatory:   { 1h: 1, 4h: 1, 1d: 2, 3d: 2, 1w: 3 }
+      reputational: { 1h: 1, 4h: 2, 1d: 2, 3d: 3, 1w: 4 }
+  - name: Regulatory reporting
+    owner: CFO
+    max_data_loss: 1d
+    depends_on: [data-warehouse]
+    impacts:
+      financial:    { 1h: 1, 4h: 1, 1d: 1, 3d: 2, 1w: 3 }
+      customer:     { 1h: 1, 4h: 1, 1d: 1, 3d: 1, 1w: 1 }
+      regulatory:   { 1h: 1, 4h: 1, 1d: 2, 3d: 4, 1w: 5 }
+      reputational: { 1h: 1, 4h: 1, 1d: 1, 3d: 2, 1w: 3 }
